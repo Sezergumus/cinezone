@@ -19,31 +19,24 @@ export default function Movie(props) {
     "django",
     "pulp-fiction",
   ];
-  const [movie, setMovie] = useState({
-    id: 1,
-    title: "Oppenheimer",
-    link: "oppenheimer",
-    age_rating: "R15",
-    duration: 180,
-    release_year: "2023",
-    genre: "Drama",
-    poster: "/movie/oppenheimer.png",
-    banner: "/movie/oppenheimer-banner.png",
-  });
+  const [movie, setMovie] = useState(null);
   const [showtimes, setShowtimes] = useState([]);
   const [uniqueDates, setUniqueDates] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedDateShowtimes, setSelectedDateShowtimes] = useState([]);
+  const [firstRender, setFirstRender] = useState(true);
 
   if (!movieArr.includes(movieName)) {
     router.push("/404");
   }
 
-  // const getMovie = async () => {
-  //   const res = fetch(`http://localhost:3000/api/movies?movie_link=${movieName}`)
-  //   const data = await (await res).json()
-  //   setMovie(data.rows[0])
-  // }
+  const getMovie = async () => {
+    const res = fetch(
+      `http://localhost:3000/api/movies?movie_link=${movieName}`
+    );
+    const data = await (await res).json();
+    setMovie(data.rows[0]);
+  };
 
   const getShowTimes = async () => {
     const res = fetch(
@@ -74,7 +67,10 @@ export default function Movie(props) {
       };
     });
     setShowtimes(transformedData);
-    setSelectedDate(transformedData[0].start_date);
+    if (firstRender) {
+      setSelectedDate(transformedData[0].start_date);
+      setFirstRender(false);
+    }
     setUniqueDates([
       ...new Map(
         transformedData.map((item) => [
@@ -86,8 +82,11 @@ export default function Movie(props) {
   };
 
   useEffect(() => {
-    getShowTimes();
-  }, []);
+    getMovie();
+    if (movie) {
+      getShowTimes();
+    }
+  }, [movie]);
 
   useEffect(() => {
     const result = showtimes.filter(
