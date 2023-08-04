@@ -12,11 +12,11 @@ export default function Movie(props) {
   const movieArr = [
     "oppenheimer",
     "barbie",
-    "mission-impossible",
-    "indiana-jones",
+    "mission-impossible-7",
+    "indiana-jones-5",
     "jaws",
     "inglourious-basterds",
-    "django",
+    "django-unchained",
     "pulp-fiction",
   ];
   const [movie, setMovie] = useState(null);

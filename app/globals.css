@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --movie-banner: url("");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -65,7 +69,7 @@ html {
 
 .movie-upper-container::before {
   content: "";
-  background-image: url(/movie/oppenheimer-banner.png);
+  background-image: var(--movie-banner);
   background-repeat: no-repeat;
   filter: blur(4px);
   -webkit-filter: blur(4px);

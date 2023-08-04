@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   } else if (req.query.movie_link) {
     // if movie_link is provided, return movies with name
     const { rows } =
-      await sql`SELECT DISTINCT movie.id, movie.title, movie.link, movie.poster, movie.duration, movie.age_rating, movie.release_date, movie.genre, movie.director, movie.movie_cast
+      await sql`SELECT DISTINCT movie.id, movie.title, movie.link, movie.poster, movie.duration, movie.age_rating, movie.release_date, movie.genre, movie.director, movie.movie_cast, movie.banner_image
         FROM movie
         WHERE movie.link = ${req.query.movie_link}
         ORDER BY movie.id ASC

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import Image from "next/image";
 
@@ -12,8 +14,17 @@ export default function Banner(props) {
 
   const releaseYear = new Date(movie.release_date).getFullYear();
 
+  const movieBanner = movie.banner_image;
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--movie-banner",
+      `url(${movieBanner})`
+    );
+  }, [movieBanner]);
+
   return (
-    <div className="movie-upper-container w-full relative bg-[#00000045]">
+    <div className={`movie-upper-container w-full relative bg-[#00000045]`}>
       <div className="movie-banner-container w-3/4 mx-auto py-8 flex gap-4">
         <Image
           src={movie.poster}
