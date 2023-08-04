@@ -31,17 +31,13 @@ export default function Movie(props) {
   }
 
   const getMovie = async () => {
-    const res = fetch(
-      `http://localhost:3000/api/movies?movie_link=${movieName}`
-    );
+    const res = fetch(`/api/movies?movie_link=${movieName}`);
     const data = await (await res).json();
     setMovie(data.rows[0]);
   };
 
   const getShowTimes = async () => {
-    const res = fetch(
-      `http://localhost:3000/api/showtimes?movie_id=${movie.id}`
-    );
+    const res = fetch(`/api/showtimes?movie_id=${movie.id}`);
     const data = await (await res).json();
     const transformedData = data.rows.map((showtime) => {
       const date = new Date(showtime.start_time);
